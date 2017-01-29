@@ -1,0 +1,36 @@
+### CRON CONFIGURATION ###
+# http://www.redmine.org/projects/redmine/wiki/EmailConfiguration
+# http://www.redmine.org/projects/redmine/wiki/RedmineReminderEmails
+
+
+- cron: name='redmine redminders for mon to thursday'
+        job="cd {{ redmine_dir }} && bash -c 'source /home/$USER/.rvm/scripts/rvm && RAILS_ENV=production rake redmine:send_reminders days=1 RAILS_ENV=production > /dev/null'"
+        user='{{ redmine_system_user }}'
+        cron_file='redmine_server'
+        weekday='1-4'
+        hour='9'
+        minute='0'
+  tags:
+    - redmine-ansible-cron
+
+- cron: name='redmine redminders for friday'
+        job="cd {{ redmine_dir }} && bash -c 'source /home/$USER/.rvm/scripts/rvm && RAILS_ENV=production rake redmine:send_reminders days=3 RAILS_ENV=production > /dev/null'"
+        user='{{ redmine_system_user }}'
+        cron_file='redmine_server'
+        weekday='5'
+        hour='9'
+        minute='0'
+  tags:
+    - redmine-ansible-cron
+
+
+- cron: name='redmine receive emails'
+        job='cd {{ redmine_dir }} && rake -f {{ redmine_dir }}/Rakefile redmine:email:receive_imap RAILS_ENV="production" host={{ redmine_email_receive.server }} port={{ redmine_email_receive.port }} username={{ redmine_email_receive.username }} password={{ redmine_email_receive.password }} ssl={{ redmine_email_receive.ssl }} move_on_sucess=read project={{ redmine_email_receive.default_project }} allow_override={{ redmine_email_receive.allow_override }} move_on_failure=fail unknown_user=accept no_permission_check=1 delete_unprocessed=1 > /dev/null'
+        user='{{ redmine_system_user }}'
+        cron_file='redmine_server'
+        weekday='*'
+        hour='*'
+        minute='*/2'
+  when: redmine_email_receive.enabled
+  tags:
+    - redmine-ansible-cron

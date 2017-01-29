@@ -1,0 +1,7 @@
+---
+
+####  --- customizations ------
+
+- include: cron.yml
+  tags:
+    - redmine-ansible-cron

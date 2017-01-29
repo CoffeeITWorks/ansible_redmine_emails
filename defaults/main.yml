@@ -1,0 +1,26 @@
+---
+# The default admin user that will be set on your redmine installation
+redmine_admin_mail: youradmin@yourdomain.com
+redmine_system_user: redmine
+redmine_path: /opt/redmine
+redmine_dir: "{{ redmine_path}}/current"
+
+# For hosts_vars/host
+
+## Associate it per hosts_
+redmine_domain: "redmine.yourdomain.com"
+## Mail that will be set on the from field whend Redmine send notificaitons
+redmine_mail_from: yourmailfrom@yourdomain.com
+
+## Setup your emails to receive from:
+
+redmine_email_receive:
+  enabled: false
+  username: emailuser
+  password: emailpassword
+  default_project: defaultprojecttoassignnew
+  server: imap_server
+  port: 993
+  ssl: SSL
+  allow_override: project,tracker,status,priority,category,assigned_to,fixed_version,start_date,due_date,estimated_hours
+
