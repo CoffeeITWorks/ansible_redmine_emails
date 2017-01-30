@@ -3,7 +3,7 @@ galaxy_info:
   author: Pablo Estigarribia
   description: ansible role configure cron tasks to send and receive emails
   company: CoffeeITWorks
-  license: GPLv2
+  license: MIT
   min_ansible_version: 2.0
   platforms:
   - name: Ubuntu
