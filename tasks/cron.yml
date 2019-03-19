@@ -24,13 +24,14 @@
     - redmine-ansible-cron
 
 
-- cron: name='redmine receive emails'
-        job='cd {{ redmine_dir }} && bash -c 'source {{ rvm_path }} && rake -f {{ redmine_dir }}/Rakefile redmine:email:receive_imap RAILS_ENV="production" host={{ redmine_email_receive.server }} port={{ redmine_email_receive.port }} username={{ redmine_email_receive.username }} password={{ redmine_email_receive.password }} ssl={{ redmine_email_receive.ssl }} move_on_sucess=read project={{ redmine_email_receive.default_project }} allow_override={{ redmine_email_receive.allow_override }} move_on_failure=fail unknown_user=accept no_permission_check=1 delete_unprocessed=1 > /dev/null'
-        user='{{ redmine_system_user }}'
-        cron_file='redmine_server'
-        weekday='*'
-        hour='*'
-        minute='*/2'
+- cron: 
+    name: 'redmine receive emails'
+    job: "cd {{ redmine_dir }} && bash -c 'source {{ rvm_path }} && rake -f {{ redmine_dir }}/Rakefile redmine:email:receive_imap RAILS_ENV=production host={{ redmine_email_receive.server }} port={{ redmine_email_receive.port }} username={{ redmine_email_receive.username }} password={{ redmine_email_receive.password }} ssl={{ redmine_email_receive.ssl }} move_on_sucess=read project={{ redmine_email_receive.default_project }} allow_override={{ redmine_email_receive.allow_override }} move_on_failure=fail unknown_user=accept no_permission_check=1 delete_unprocessed=1 > /dev/null'"
+    user: '{{ redmine_system_user }}'
+    cron_file: 'redmine_server'
+    weekday: '*'
+    hour: '*'
+    minute: '*/2'
   when: redmine_email_receive.enabled
   tags:
     - redmine-ansible-cron
