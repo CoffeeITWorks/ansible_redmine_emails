@@ -4,6 +4,8 @@ redmine_admin_mail: youradmin@yourdomain.com
 redmine_system_user: redmine
 redmine_path: /opt/redmine
 redmine_dir: "{{ redmine_path}}/current"
+#rvm_path: /home/{{ redmine_system_user }}/.rvm/scripts/rvm
+rvm_path: /usr/local/rvm/scripts/rvm
 
 # For hosts_vars/host
 

@@ -1,3 +1,8 @@
+# Role
+
+[![Build Status](https://travis-ci.org/CoffeeITWorks/ansible_redmine_emails.svg?branch=master)](https://travis-ci.org/CoffeeITWorks/ansible_redmine_emails)
+
+Main purpose is to setup cron tasks for redmine to read emails from imap server.
 
     redmine_admin_mail: youradmin@yourdomain.com
 
@@ -6,7 +11,7 @@
     redmine_mail_from: yourmailfrom@yourdomain.com
     redmine_domain: "redmine.yourdomain.com"
 
-    # You could also use a domain set in your inventory file, 
+    # You could also use a domain set in your inventory file,
     # ex : redmine_domain: "{{ hostvars[groups['redmine_server'][0]]['red_domain'] }}"
     # will use the red_domain property of the first host defined in a group remdine_server
 
