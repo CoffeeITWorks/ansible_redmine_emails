@@ -2,6 +2,16 @@
 # http://www.redmine.org/projects/redmine/wiki/EmailConfiguration
 # http://www.redmine.org/projects/redmine/wiki/RedmineReminderEmails
 
+- name: ensure /etc/cron.d exists
+  file:
+    path: '/etc/cron.d'
+    state: directory
+
+- name: cronenv prepare SHELL env var to run tasks
+  cronvar:
+    name: SHELL
+    value: /bin/bash
+    cron_file: 'redmine_server'
 
 - cron: name='redmine redminders for mon to thursday'
         job="cd {{ redmine_dir }} && bash -c 'source {{ rvm_path }} && RAILS_ENV=production rake redmine:send_reminders days=1 RAILS_ENV=production > /dev/null'"

@@ -2,6 +2,13 @@
 
 ####  --- customizations ------
 
+- name: install deps
+  apt:
+    name: cron
+    state: present
+  tags:
+      - install
+
 - include: cron.yml
   tags:
     - redmine-ansible-cron
